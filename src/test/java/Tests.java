@@ -47,18 +47,18 @@ public class Tests extends BaseTest {
     @Test(testName = "Update")
     public void putCreateTest(){
         JobRequest lider = new JobRequest("morpheus", "zion resident");
-        REQRES_IN_STEPS.putCreate(lider);
+        REQRES_IN_STEPS.putUpdate(lider);
     }
 
     @Test(testName = "UpdatePatch")
     public void patchCreateTest() {
         JobRequest lider = new JobRequest("morpheus", "zion rezident");
-        REQRES_IN_STEPS.patchCreate(lider);
+        REQRES_IN_STEPS.patchUpdate(lider);
     }
 
     @Test(testName = "Delete")
     public void deleteTest() {
-        REQRES_IN_STEPS.deleteCreate();
+        REQRES_IN_STEPS.deleteApi();
     }
 
     @Test(testName = "RegisterSucceful")

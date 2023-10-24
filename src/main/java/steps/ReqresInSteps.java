@@ -16,35 +16,69 @@ public class ReqresInSteps {
     @Step
 
     public void requestIn() {
-        given().baseUri("https://reqres.in/").when().get("api/users?page=2").then().log().all();
+        given().baseUri("https://reqres.in/")
+                .when()
+                .get("api/users?page=2")
+                .then()
+                .statusCode(200)
+                .log()
+                .all();
     }
 
     @Step
     public UserResponse requestSingleUser() {
-        given().baseUri("https://reqres.in/").when().get("api/users/2").then().log().all().extract().body().as(UserResponse.class);
+        given().baseUri("https://reqres.in/")
+                .when()
+                .get("api/users/2")
+                .then().statusCode(200)
+                .log()
+                .all()
+                .extract()
+                .body()
+                .as(UserResponse.class);
 
         return null;
     }
 
     @Step
     public void NotFoundUser() {
-        given().baseUri("https://reqres.in/").when().get("api/users/23").then().statusCode(404);
+        given().baseUri("https://reqres.in/")
+                .when()
+                .get("api/users/23")
+                .then()
+                .statusCode(404);
     }
 
     @Step
     public List<DataResponse> listResourse() {
-        given().baseUri("https://reqres.in/").when().get("api/unknown").then().log().all();
+        given().baseUri("https://reqres.in/")
+                .when()
+                .get("api/unknown")
+                .then()
+                .statusCode(200)
+                .log()
+                .all();
         return null;
     }
 
     @Step
     public void singleResourse() {
-        given().baseUri("https://reqres.in/").when().get("api/unknown/2").then().log().all();
+        given().baseUri("https://reqres.in/")
+                .when()
+                .get("api/unknown/2")
+                .then()
+                .statusCode(200)
+                .log()
+                .all();
     }
 
     @Step
     public void singleResourseNotFound() {
-        given().baseUri("https://reqres.in/").when().get("api/unknown/23").then().statusCode(404);
+        given().baseUri("https://reqres.in/")
+                .when()
+                .get("api/unknown/23")
+                .then()
+                .statusCode(404);
     }
 
     @Step
@@ -60,7 +94,7 @@ public class ReqresInSteps {
     }
 
     @Step
-    public JobResponse putCreate(JobRequest lider) {
+    public JobResponse putUpdate(JobRequest lider) {
         return given()
                 .baseUri("https://reqres.in/")
                 .contentType(ContentType.JSON)
@@ -71,7 +105,7 @@ public class ReqresInSteps {
     }
 
     @Step
-    public JobResponse patchCreate(JobRequest lider) {
+    public JobResponse  patchUpdate(JobRequest lider) {
         return given()
                 .baseUri("https://reqres.in/")
                 .contentType(ContentType.JSON)
@@ -83,7 +117,7 @@ public class ReqresInSteps {
     }
 
     @Step
-    public void deleteCreate() {
+    public void deleteApi() {
         given()
                 .baseUri("https://reqres.in/")
                 .contentType(ContentType.JSON)
@@ -101,7 +135,12 @@ public class ReqresInSteps {
                 .when()
                 .body(userLogin)
                 .post("api/register")
-                .then().statusCode(200).log().all().extract().body().as(ResponseUserAdd.class);
+                .then().statusCode(200)
+                .log()
+                .all()
+                .extract()
+                .body()
+                .as(ResponseUserAdd.class);
 
     }
 
@@ -120,8 +159,18 @@ public class ReqresInSteps {
 
     @Step
     public ResponseLogin loginUser(RequestLogin requestLogin) {
-        return given().baseUri("https://reqres.in/").contentType(ContentType.JSON).when().body(requestLogin)
-                .post("api/login").then().statusCode(200).log().all().extract().body().as(ResponseLogin.class);
+        return given().baseUri("https://reqres.in/")
+                .contentType(ContentType.JSON)
+                .when()
+                .body(requestLogin)
+                .post("api/login")
+                .then()
+                .statusCode(200)
+                .log()
+                .all()
+                .extract()
+                .body()
+                .as(ResponseLogin.class);
     }
 
     public void loginUnUser() {
@@ -136,7 +185,12 @@ public class ReqresInSteps {
     }
     @Step
     public void Delay() {
-        given().baseUri("https://reqres.in/").when().get("/api/users?delay=3").then().log().all();
+        given().baseUri("https://reqres.in/")
+                .when()
+                .get("/api/users?delay=3")
+                .then().statusCode(200)
+                .log()
+                .all();
     }
 
 }
