@@ -16,9 +16,9 @@ public class ReqresInSteps {
     @Step
 
     public void requestIn() {
-        given().baseUri("https://reqres.in/")
+        given()
                 .when()
-                .get("api/users?page=2")
+                .get("https://reqres.in/api/users?page=2")
                 .then()
                 .statusCode(200)
                 .log()
@@ -27,9 +27,9 @@ public class ReqresInSteps {
 
     @Step
     public UserResponse requestSingleUser() {
-        given().baseUri("https://reqres.in/")
+        given()
                 .when()
-                .get("api/users/2")
+                .get("https://reqres.in/api/users/2")
                 .then().statusCode(200)
                 .log()
                 .all()
@@ -42,18 +42,18 @@ public class ReqresInSteps {
 
     @Step
     public void NotFoundUser() {
-        given().baseUri("https://reqres.in/")
+        given()
                 .when()
-                .get("api/users/23")
+                .get("https://reqres.in/api/users/23")
                 .then()
                 .statusCode(404);
     }
 
     @Step
     public List<DataResponse> listResourse() {
-        given().baseUri("https://reqres.in/")
+        given()
                 .when()
-                .get("api/unknown")
+                .get("https://reqres.in/api/unknown")
                 .then()
                 .statusCode(200)
                 .log()
@@ -63,9 +63,9 @@ public class ReqresInSteps {
 
     @Step
     public void singleResourse() {
-        given().baseUri("https://reqres.in/")
+        given()
                 .when()
-                .get("api/unknown/2")
+                .get("https://reqres.in/api/unknown/2")
                 .then()
                 .statusCode(200)
                 .log()
@@ -74,9 +74,8 @@ public class ReqresInSteps {
 
     @Step
     public void singleResourseNotFound() {
-        given().baseUri("https://reqres.in/")
-                .when()
-                .get("api/unknown/23")
+        given().when()
+                .get("https://reqres.in/api/unknown/23")
                 .then()
                 .statusCode(404);
     }
@@ -84,11 +83,11 @@ public class ReqresInSteps {
     @Step
     public JobResponse postCreate(JobRequest jober) {
         return given()
-                .baseUri("https://reqres.in/")
+
                 .contentType(ContentType.JSON)
                 .when()
                 .body(jober)
-                .post("api/users")
+                .post("https://reqres.in/api/users")
                 .then().statusCode(201).log().all().extract().body().as(JobResponse.class);
 
     }
@@ -96,22 +95,22 @@ public class ReqresInSteps {
     @Step
     public JobResponse putUpdate(JobRequest lider) {
         return given()
-                .baseUri("https://reqres.in/")
+
                 .contentType(ContentType.JSON)
                 .when()
                 .body(lider)
-                .put("/api/unknown/2")
+                .put("https://reqres.in/api/unknown/2")
                 .then().statusCode(200).log().all().extract().body().as(JobResponse.class);
     }
 
     @Step
     public JobResponse  patchUpdate(JobRequest lider) {
         return given()
-                .baseUri("https://reqres.in/")
+
                 .contentType(ContentType.JSON)
                 .when()
                 .body(lider)
-                .patch("api/users/2")
+                .patch("https://reqres.in/api/users/2")
                 .then().statusCode(200).log().all().extract().body().as(JobResponse.class);
 
     }
@@ -119,10 +118,10 @@ public class ReqresInSteps {
     @Step
     public void deleteApi() {
         given()
-                .baseUri("https://reqres.in/")
+
                 .contentType(ContentType.JSON)
                 .when()
-                .delete("api/users/2")
+                .delete("https://reqres.in/api/users/2")
                 .then().statusCode(204);
     }
 
@@ -130,11 +129,11 @@ public class ReqresInSteps {
     @Step
     public ResponseUserAdd RegisterCreate(RequestUserAdd userLogin) {
         return given()
-                .baseUri("https://reqres.in/")
+
                 .contentType(ContentType.JSON)
                 .when()
                 .body(userLogin)
-                .post("api/register")
+                .post("https://reqres.in/api/register")
                 .then().statusCode(200)
                 .log()
                 .all()
@@ -148,22 +147,22 @@ public class ReqresInSteps {
     public void RegisterUNCreate() {
 
         ResponseUserAdd responseUserAdd = given()
-                .baseUri("https://reqres.in/")
+
                 .contentType(ContentType.JSON)
                 .when()
                 .body(new RequestUserAdd("sydney@fife"))
-                .post("api/register")
+                .post("https://reqres.in/api/register")
                 .then().statusCode(400).log().all().extract().body().as(ResponseUserAdd.class);
         Assert.assertEquals("Missing password", responseUserAdd.error);
     }
 
     @Step
     public ResponseLogin loginUser(RequestLogin requestLogin) {
-        return given().baseUri("https://reqres.in/")
+        return given()
                 .contentType(ContentType.JSON)
                 .when()
                 .body(requestLogin)
-                .post("api/login")
+                .post("https://reqres.in/api/login")
                 .then()
                 .statusCode(200)
                 .log()
@@ -175,20 +174,20 @@ public class ReqresInSteps {
 
     public void loginUnUser() {
         ResponseLogin responseLogin = given()
-                .baseUri("https://reqres.in/")
+
                 .contentType(ContentType.JSON)
                 .when()
                 .body(new RequestLogin("peter@klaven"))
-                .post("api/login")
+                .post("https://reqres.in/api/login")
                 .then().statusCode(400).log().all().extract().body().as(ResponseLogin.class);
         Assert.assertEquals("Missing password", responseLogin.error);
     }
     @Step
     public void Delay() {
-        given().baseUri("https://reqres.in/")
+        given()
                 .when()
-                .get("/api/users?delay=3")
-                .then().statusCode(200)
+                .get("https://reqres.in//api/users?delay=3")
+                .then().statusCode(404)
                 .log()
                 .all();
     }
